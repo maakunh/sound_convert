@@ -146,7 +146,7 @@ def main():
                                     print("wav file do not move.")
                                 else:
                                     try:
-                                        shutil.move(self.sfile, self.dstdir + os.sep + 'wav' + os.sep)
+                                        shutil.move(sfile, dstdir + os.sep + 'wav' + os.sep)
                                     except OSError as e:
                                         print(e)
 
