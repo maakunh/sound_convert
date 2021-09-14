@@ -142,7 +142,7 @@ def main():
                                 print("Done.")
                                 # the wave file that convert process has end is moved to wav folder.
                                 if os.path.isfile(self.dstdir + os.sep + 'wav' + os.sep + os.path.basename(self.sfile)):
-                                    print("wav file is already exist.")
+                                    print("wav file already exist.")
                                     print("wav file do not move.")
                                 else:
                                     try:
