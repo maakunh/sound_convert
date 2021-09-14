@@ -128,6 +128,17 @@ class sound:
             except OSError as e:
                 print(e)
 
+    def is_file_exists(self, arg):
+        return os.path.isfile(arg)
+
+    def delete_file(self, arg):
+        try:
+            os.remove(arg)
+            print("delte -> " + arg)
+        except OSError as e:
+            print(e)
+            sys.exit(1)
+
 
 def main():
     if len(sys.argv) < 3:
@@ -149,6 +160,8 @@ def main():
                                 cls_sound.sfile = file
                                 print("destination file = " + cls_sound.dstfile + os.sep + os.path.basename(file)[:-len(os.path.splitext(os.path.basename(file)))-2] + "." + cls_sound.fmt)
                                 cls_sound.exportfile = cls_sound.dstfile + os.sep + os.path.basename(file)[:-len(os.path.splitext(os.path.basename(file)))-2] + "." + cls_sound.fmt
+                                if cls_sound.is_file_exists(cls_sound.exportfile):
+                                    cls_sound.delete_file(cls_sound.exportfile)
                                 print("ffmpeg run")
                                 print(cls_sound.export())
                                 print("Done.")
@@ -159,6 +172,8 @@ def main():
                             print("source file = " + sfile)
                             print("destination file = " + cls_sound.dstfile + "." + cls_sound.fmt)
                             cls_sound.exportfile = cls_sound.dstfile + "." + cls_sound.fmt
+                            if cls_sound.is_file_exists(cls_sound.exportfile):
+                                cls_sound.delete_file(cls_sound.exportfile)
                             print("ffmpeg run")
                             print(cls_sound.export())
                             print("Done.")
