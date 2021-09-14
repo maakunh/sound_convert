@@ -117,6 +117,18 @@ class sound:
         return proc.stdout
 
 
+    def move_wavfile(self):
+        # the wave file that convert process has end is moved to wav folder.
+        if os.path.isfile(self.dstdir + os.sep + 'wav' + os.sep + os.path.basename(self.sfile)):
+            print("wav file already exist.")
+            print("wav file do not move.")
+        else:
+            try:
+                shutil.move(self.sfile, self.dstdir + os.sep + 'wav' + os.sep)
+            except OSError as e:
+                print(e)
+
+
 def main():
     if len(sys.argv) < 3:
         print("Usage: sound_convert.py <source wav file/folder>  <convert format name>")
@@ -140,15 +152,7 @@ def main():
                                 print("ffmpeg run")
                                 print(cls_sound.export())
                                 print("Done.")
-                                # the wave file that convert process has end is moved to wav folder.
-                                if os.path.isfile(cls_sound.dstdir + os.sep + 'wav' + os.sep + os.path.basename(sfile)):
-                                    print("wav file already exist.")
-                                    print("wav file do not move.")
-                                else:
-                                    try:
-                                        shutil.move(sfile, cls_sound.dstdir + os.sep + 'wav' + os.sep)
-                                    except OSError as e:
-                                        print(e)
+                                cls_sound.move_wavfile()
 
                         else:
                             # single file mode
@@ -158,6 +162,7 @@ def main():
                             print("ffmpeg run")
                             print(cls_sound.export())
                             print("Done.")
+                            cls_sound.move_wavfile()
                     else:
                         print("error from get_parameter. format-> " + fmtname)
                 else:
