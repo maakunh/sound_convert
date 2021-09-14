@@ -141,12 +141,12 @@ def main():
                                 print(cls_sound.export())
                                 print("Done.")
                                 # the wave file that convert process has end is moved to wav folder.
-                                if os.path.isfile(self.dstdir + os.sep + 'wav' + os.sep + os.path.basename(self.sfile)):
+                                if os.path.isfile(cls_sound.dstdir + os.sep + 'wav' + os.sep + os.path.basename(sfile)):
                                     print("wav file already exist.")
                                     print("wav file do not move.")
                                 else:
                                     try:
-                                        shutil.move(sfile, dstdir + os.sep + 'wav' + os.sep)
+                                        shutil.move(sfile, cls_sound.dstdir + os.sep + 'wav' + os.sep)
                                     except OSError as e:
                                         print(e)
 
