@@ -113,17 +113,8 @@ class sound:
 
     def export(self):
         print("ffmpeg -i " + self.sfile + " " + self.parameter + " " + self.exportfile)
-        subprocess.run("ffmpeg -i " + self.sfile + " " + self.parameter + " " + self.exportfile, shell=True, stdout=PIPE, stderr=PIPE, text=True)
-
-        # the wave file that convert process has end is moved to wav folder.
-        if os.path.isfile(self.dstdir + os.sep + 'wav' + os.sep + os.path.basename(self.sfile)):
-            print("wav file is already exist.")
-            print("wav file do not move.")
-        else:
-            try:
-                shutil.move(self.sfile, self.dstdir + os.sep + 'wav' + os.sep)
-            except OSError as e:
-                print(e)
+        proc = subprocess.run("ffmpeg -i " + self.sfile + " " + self.parameter + " " + self.exportfile, shell=True, stdout=PIPE, stderr=PIPE, text=True)
+        return proc.stdout
 
 
 def main():
@@ -149,6 +140,15 @@ def main():
                                 print("ffmpeg run")
                                 print(cls_sound.export())
                                 print("Done.")
+                                # the wave file that convert process has end is moved to wav folder.
+                                if os.path.isfile(self.dstdir + os.sep + 'wav' + os.sep + os.path.basename(self.sfile)):
+                                    print("wav file is already exist.")
+                                    print("wav file do not move.")
+                                else:
+                                    try:
+                                        shutil.move(self.sfile, self.dstdir + os.sep + 'wav' + os.sep)
+                                    except OSError as e:
+                                        print(e)
 
                         else:
                             # single file mode
